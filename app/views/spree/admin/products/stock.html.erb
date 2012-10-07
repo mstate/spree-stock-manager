@@ -8,6 +8,7 @@
   <br class="clear" />
 </div>
 <h1><%= t(:listing_products) %></h1>
+<a style="cursor:pointer;margin-bottom:10px" id="show-only-no-stock" class="button" href="#"> <span>show only no stock </a></h2>
 <div id="new_product" data-hook></div>
 <table class="index" id="listing_products">
   <tr data-hook="admin_products_index_headers">
@@ -16,8 +17,8 @@
     <th><%= t('.in_stock') %></th>
   </tr>
 <% @products.each do |product| %>
-  <% variants = pradouct.variants %>
-  <tr <%= "style='color: red;'" unless product.has_stock? %> id="<%= dom_id product %>" data-hook="admin_products_index_rows">
+  <% variants = product.variants %>
+  <tr <%= "class='no-stock'".html_safe unless product.has_stock? %> id="<%= dom_id product %>" data-hook="admin_products_index_rows">
     <td>
       <%= product.sku rescue '' %>
       <% variants.each do |v| %>
@@ -32,7 +33,7 @@
     <td>
       <%= product.on_hand %>
       <% variants.each do |v| %>
-      <br/><%= v.on_hand  %>
+      <br/><span <%= "class='no-stock'".html_safe if v.on_hand == 0%>><%=  v.on_hand  %></span>
       <% end %>
     </td>
   </tr>
@@ -41,3 +42,22 @@
 
 <%= javascript_tag "$('#sub_nav > li:first-child').removeClass('selected')" %>
 <%= javascript_tag "$('#sub_nav > li:last-child').addClass('selected')" %>
+
+<script>
+
+noStock = function(){
+ noStock = [];
+ $('#listing_products tr:not(:first-child)').each(function(){
+   $(this).hide()
+   if ($(this).hasClass('no-stock')
+   || $(this).find('.no-stock').length > 0 ) {
+     noStock.push($(this))
+   }
+ })
+ $(noStock).each(function(){$(this).show()})
+}
+
+$('#show-only-no-stock').on('click',noStock)
+
+</script>
+
