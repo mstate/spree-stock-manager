@@ -15,6 +15,7 @@
     <th><%= t(:sku) %></th>
     <th><%= t(:name) %></th>
     <th><%= t('.in_stock') %></th>
+    <th><%= t(:warehouse) %></th>
   </tr>
 <% @products.each do |product| %>
   <% variants = product.variants %>
@@ -31,9 +32,17 @@
       <% end %>
     </td>
     <td>
-      <%= product.on_hand %>
+      <%= product.total_on_hand %>
       <% variants.each do |v| %>
       <br/><span <%= "class='no-stock'".html_safe if v.on_hand == 0%>><%=  v.on_hand  %></span>
+      <% end %>
+    </td>
+    <td>
+      <% product.stock_items.order(:variant_id).each do |stock_item| %>
+       <br/>
+       <span <%= "class='no-stock'".html_safe if stock_item.count_on_hand == 0%>>
+        <%=  stock_item.stock_location.admin_name  %>&nbsp;-&nbsp;<%=  stock_item.count_on_hand  %>
+       </span>
       <% end %>
     </td>
   </tr>
