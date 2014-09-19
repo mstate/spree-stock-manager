@@ -1,13 +1,17 @@
 SpreeStockManager
 =================
 
-Introduction goes here.
+A report of your current inventory for Spree  2.3.
+
+Add the gem:
+
+    gem 'spree-stock-inventroy', github: 'renuo/spree-stock-manager', ref: '2-3-stable'
 
 
 Example
 =======
 
-Example goes here.
+TOO
 
 Testing
 -------

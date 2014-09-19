@@ -3,3 +3,9 @@
 
 en:
   hello: "Hello world"
+  stock_manager:
+    link: 'Stock Inventory'
+    title: 'Stock Inventory'
+    only_out_of_stock: show only out of stock
+    in_stock: In stock
+    money: $

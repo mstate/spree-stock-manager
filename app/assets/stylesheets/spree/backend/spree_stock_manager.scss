@@ -1,0 +1,29 @@
+@media print {
+  #header {
+    [data-hook="admin_login_navigation_bar"] {
+      display: none;
+    }
+
+    [data-hook="logo-wrapper"] {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  #admin-menu {
+    display: none;
+  }
+
+  #sub-menu {
+    display: none;
+  }
+
+  [data-print] {
+    display: none;
+  }
+
+  table {
+    max-width: 100%;
+    width: initial;
+  }
+}
