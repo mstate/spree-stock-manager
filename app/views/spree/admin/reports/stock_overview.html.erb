@@ -1,5 +1,3 @@
-<%= render :partial => 'spree/admin/shared/product_sub_menu' %>
-
 <% content_for :page_title do %>
     <%= l Date.today %> <%= t('stock_manager.title') %>
 <% end %>
@@ -10,42 +8,39 @@
     </li>
 <% end if can?(:create, Spree::Product) %>
 
-
-
 <fieldset>
-  <legend><%=t('stock_manager.filters')%></legend>
+  <legend><%= Spree.t(:date_range) %></legend>
   <div class="only_print">
     <p>
-      <b><%=t('stock_manager.filter_from')%>: </b>
+      <b><%= Spree.t(:start) %>: </b>
       <%= params[:from].present? ? params[:from] : '-' %>
     </p>
 
     <p>
-      <b><%=t('stock_manager.filter_to')%>: </b>
+      <b><%= Spree.t(:end) %>: </b>
       <%= params[:to].present? ? params[:to] : '-' %>
     </p>
   </div>
-  <%= form_tag stock_overview_admin_products_path, method: :get do |f| %>
+  <%= form_tag stock_overview_admin_reports_path, method: :get do |f| %>
       <div class="row">
 
-        <div class="six columns">
-          <div class="field">
-            <%= label_tag 'from', t('stock_manager.filter_from') %>
-            <%= date_field_tag 'from', params[:from], class: 'fullwidth' %>
-          </div>
-        </div>
-        <div class="six columns">
-          <div class="field">
-            <%= label_tag 'to', t('stock_manager.filter_to') %>
-            <%= date_field_tag 'to', params[:to], class: 'fullwidth' %>
+          <div class="field align-center">
+            <%= label_tag 'from',  Spree.t(:start), class: 'inline' %>
+            <%= text_field_tag 'from', params[:from], class: 'datepicker datepicker-from' %>
+
+            <span class="range-divider">
+                <i class="fa fa-arrow-right"></i>
+            </span>
+
+            <%= text_field_tag 'to', params[:to], class: 'datepicker datepicker-to' %>
+            <%= label_tag 'to',  Spree.t(:end), class: 'inline' %>
           </div>
         </div>
 
-      </div>
       <div class="form-buttons actions filter-actions">
-        <%= button_tag t('stock_manager.filter_button'), class: 'fa fa-ok button' %>
+        <%= button_tag Spree.t(:search), class: 'fa fa-search button' %>
         <span class="or"><%= Spree.t('or') %></span>
-        <%= link_to t('stock_manager.reset_button'), stock_overview_admin_products_path, class: 'fa fa-remove button' %>
+        <%= link_to t('stock_manager.reset_button'), stock_overview_admin_reports_path, class: 'fa fa-remove button' %>
       </div>
   <% end %>
 </fieldset>

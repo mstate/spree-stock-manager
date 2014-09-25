@@ -24,6 +24,16 @@
 
   table {
     max-width: 100%;
-    width: initial;
+    width: 100%;
+  }
+
+  fieldset form {
+    display: none;
+  }
+}
+
+@media screen {
+  .only_print {
+    display: none;
   }
 }

@@ -12,3 +12,5 @@ en:
     in_stock: In stock
     sold: Sold
     money: $
+    filter_button: Filter
+    reset_button: Reset
