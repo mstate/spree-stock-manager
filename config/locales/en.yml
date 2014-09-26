@@ -5,8 +5,7 @@ en:
   hello: "Hello world"
   stock_manager:
     link: 'Stock Inventory'
-    title: 'Stock Inventory'
-    only_out_of_stock: show only out of stock
+    title: 'Stock Inventory for %{date}'
     article_number: 'Art. Nr.'
     article_name: Name
     in_stock: In stock
@@ -14,3 +13,7 @@ en:
     money: $
     filter_button: Filter
     reset_button: Reset
+    date_range: Sales filter (from/to)
+  spree:
+    stock_overview: Stock Overview
+    stock_overview_description: Displays the current inventory and sales per product for a certain period

@@ -1,15 +1,15 @@
 <% content_for :page_title do %>
-    <%= l Date.today %> <%= t('stock_manager.title') %>
+    <%= t('stock_manager.title', date: (l Date.today)) %>
 <% end %>
 
 <% content_for :page_actions do %>
     <li id="new_product_link">
       <button data-print class="fa fa-print"><%= t('stock_manager.print') %></button>
     </li>
-<% end if can?(:create, Spree::Product) %>
+<% end %>
 
 <fieldset>
-  <legend><%= Spree.t(:date_range) %></legend>
+  <legend><%= t('stock_inventory.date_range') %></legend>
   <div class="only_print">
     <p>
       <b><%= Spree.t(:start) %>: </b>
@@ -54,10 +54,10 @@
   <thead>
   <tr data-hook="admin_products_index_headers">
     <th><%= t('stock_manager.article_number') %></th>
-    <th><%= t('stock_manager.article_name') %></th>
-    <th><%= t('stock_manager.in_stock') %></th>
-    <th><%= t('stock_manager.sold') %></th>
-    <th><%= t('stock_manager.money') %></th>
+    <th class="align-left"><%= t('stock_manager.article_name') %></th>
+    <th class="align-right"><%= t('stock_manager.in_stock') %></th>
+    <th class="align-right"><%= t('stock_manager.sold') %></th>
+    <th class="align-right"><%= t('stock_manager.money') %></th>
   </tr>
   </thead>
   <tbody>
