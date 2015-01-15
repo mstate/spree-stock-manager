@@ -7,6 +7,6 @@ Spree::Admin::ReportsController.class_eval do
   end
 
   def stock_overview
-    @products = Spree::Product.all
+    @products = Spree::Product.joins(:master).order('spree_variants.sku')
   end
 end
