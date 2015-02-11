@@ -58,6 +58,7 @@
     <th class="align-right"><%= t('stock_manager.in_stock') %></th>
     <th class="align-right"><%= t('stock_manager.sold') %></th>
     <th class="align-right"><%= t('stock_manager.money') %></th>
+    <th class="align-right"><%= t('stock_manager.periods_on_hand') %></th>
   </tr>
   </thead>
   <tbody>
@@ -85,17 +86,29 @@
           <% end %>
         </td>
         <td class="align-right">
-          <div><%= product.count_sold(params[:from], params[:to]) %></div>
+          <% begin %>
+          <div><%= @variant_sales_by_id[product.master.id].total_quantity_sold %></div>
+          <% rescue => e %>
+          <% byebug %>
+          <% a=1 %>
+          <% end %>
           <% variants.each do |variant| %>
-              <div><%= variant.count_sold(params[:from], params[:to]) %></div>
+              <div><%= @variant_sales_by_id[variant.id] %></div>
           <% end %>
         </td>
         <td class="align-right">
-          <div><%= Spree::Money.new(product.count_money(params[:from], params[:to])) %></div>
+          <div><%= Spree::Money.new(@variant_sales_by_id[product.master.id].total_sales)%></div>
           <% variants.each do |variant| %>
-              <div><%= Spree::Money.new(variant.count_money(params[:from], params[:to])) %></div>
+              <div><%= Spree::Money.new(@variant_sales_by_id[variant.id].total_sales) %></div>
           <% end %>
         </td>
+        <td class="align-right">
+          <div><%= (product.total_on_hand.to_f / (@variant_sales_by_id[product.master.id] ? @variant_sales_by_id[product.master.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
+          <% variants.each do |variant| %>
+              <div><%= (variant.total_on_hand.to_f / (@variant_sales_by_id[variant.id] ? @variant_sales_by_id[variant.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
+          <% end %>
+        </td>
+
       </tr>
   <% end %>
   </tbody>
