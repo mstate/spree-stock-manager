@@ -18,7 +18,7 @@ Spree::Admin::ReportsController.class_eval do
     variant_sales.each do |variant_sale|
       @variant_sales_by_id[variant_sale.variant_id] = variant_sale
     end
-    @products = Spree::Product.not_deleted.available.all.sort_by{|product| @variant_sales_by_id[product.master.id].present? ? (product.total_on_hand || 0).to_f / @variant_sales_by_id[product.master.id].total_quantity_sold : 10000.0}
+    @products = Spree::Product.not_deleted.available.uniq.all.sort_by{|product| @variant_sales_by_id[product.master.id].present? ? (product.total_on_hand || 0).to_f / @variant_sales_by_id[product.master.id].total_quantity_sold : 10000.0}
 
   	# case params
    #  @products = Spree::Product.joins(:master).order('spree_variants.sku')
