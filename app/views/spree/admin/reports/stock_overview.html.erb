@@ -86,12 +86,7 @@
           <% end %>
         </td>
         <td class="align-right">
-          <% begin %>
-          <div><%= @variant_sales_by_id[product.master.id].total_quantity_sold %></div>
-          <% rescue => e %>
-          <% byebug %>
-          <% a=1 %>
-          <% end %>
+          <div><%= @variant_sales_by_id[product.master.id].try(:total_quantity_sold) %></div>
           <% variants.each do |variant| %>
               <div><%= @variant_sales_by_id[variant.id] %></div>
           <% end %>
