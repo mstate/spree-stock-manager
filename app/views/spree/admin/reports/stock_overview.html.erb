@@ -85,24 +85,28 @@
               <% end %>
           <% end %>
         </td>
-        <td class="align-right">
-          <div><%= @variant_sales_by_id[product.master.id].try(:total_quantity_sold) %></div>
-          <% variants.each do |variant| %>
-              <div><%= @variant_sales_by_id[variant.id] %></div>
-          <% end %>
-        </td>
-        <td class="align-right">
-          <div><%= Spree::Money.new(@variant_sales_by_id[product.master.id].total_sales)%></div>
-          <% variants.each do |variant| %>
-              <div><%= Spree::Money.new(@variant_sales_by_id[variant.id].total_sales) %></div>
-          <% end %>
-        </td>
-        <td class="align-right">
-          <div><%= (product.total_on_hand.to_f / (@variant_sales_by_id[product.master.id] ? @variant_sales_by_id[product.master.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
-          <% variants.each do |variant| %>
-              <div><%= (variant.total_on_hand.to_f / (@variant_sales_by_id[variant.id] ? @variant_sales_by_id[variant.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
-          <% end %>
-        </td>
+        <% if @variant_sales_by_id[product.master.id].blank? %>
+          <td colspan="3">No sales data for this product.</td>
+        <% else %>
+          <td class="align-right">
+            <div><%= @variant_sales_by_id[product.master.id].total_quantity_sold %></div>
+            <% variants.each do |variant| %>
+                <div><%= @variant_sales_by_id[variant.id] %></div>
+            <% end %>
+          </td>
+          <td class="align-right">
+            <div><%= Spree::Money.new(@variant_sales_by_id[product.master.id].total_sales)%></div>
+            <% variants.each do |variant| %>
+                <div><%= Spree::Money.new(@variant_sales_by_id[variant.id].total_sales) %></div>
+            <% end %>
+          </td>
+          <td class="align-right">
+            <div><%= (product.total_on_hand.to_f / (@variant_sales_by_id[product.master.id] ? @variant_sales_by_id[product.master.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
+            <% variants.each do |variant| %>
+                <div><%= (variant.total_on_hand.to_f / (@variant_sales_by_id[variant.id] ? @variant_sales_by_id[variant.id].try(:total_quantity_sold) : 10.0**-10)).round(1) %></div>
+            <% end %>
+          </td>
+        <% end %>
 
       </tr>
   <% end %>
